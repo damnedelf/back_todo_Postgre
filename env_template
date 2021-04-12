@@ -2,5 +2,5 @@ U need to create .env file. Below is default template
 URL=localhost
 PORT=5500
 DB_NAME = "todos"
-DB_LOGIN = "damnedelf"
-DB_PASSWORD = "killmenot"
+DB_LOGIN = "ur login"
+DB_PASSWORD = "ur password"
