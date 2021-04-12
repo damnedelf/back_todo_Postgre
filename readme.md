@@ -77,8 +77,9 @@ This is an example of how to list things you need to use the software and how to
 
 ## Usage
 
-After installation u can build bundle and run server
-2 modes are available;
+Create .env file to conigure ur environment. Use env_template as template, if u want.
+
+#### After creating .env u can build bundle and run server, 2 modes are available;
 
 1. Webpack bundles code
 
@@ -96,6 +97,15 @@ npm run start
 ```
 
 server is listening localhost:5500 by default. U can change it by modifying .env 'PORT' 'URL'
+
+3. Run server
+
+```sh
+npm run nodemon
+```
+
+The same as last option but autoReload is enabled
+
 <br />
 
 ## Contact

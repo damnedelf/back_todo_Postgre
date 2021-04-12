@@ -23,4 +23,4 @@ const mongoConnect = function () {
       console.log('error>>>>>>', error);
     });
 };
-export default mongoConnect;
+module.exports = mongoConnect;
