@@ -6,7 +6,7 @@ const Todos = require('../db/models/todo_model');
 
 //new todo===>db
 router.post(
-  '',
+  '/',
   async function (req: Request, res: Response, next: NextFunction) {
     try {
       let person = await Todos.create({
@@ -30,7 +30,7 @@ router.post(
 );
 //get all array for onLoad
 router.get(
-  '',
+  '/',
   async function (req: Request, res: Response, next: NextFunction) {
     try {
       const todoArr: IobjectFromPostgre[] = await Todos.findAll({
@@ -58,6 +58,23 @@ router.delete(
     }
   }
 );
+
+router.put('/', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await Todos.update(
+      { isCompleted: !req.body.condition },
+      {
+        where: {},
+      }
+    );
+  } catch (error) {
+    console.log(error.message);
+    next(new Error('access denied'));
+  }
+
+  res.status(204).end();
+});
+
 // //mark completed/!completed by id + update all + order
 router.patch(
   '/:id',
@@ -74,33 +91,24 @@ router.patch(
           }
         );
 
-        res.status(204).end();
+        return res.status(204).end();
         //   //if req => mark all
-      } else if (req.body.condition !== null) {
-        await Todos.update(
-          { isCompleted: !req.body.condition },
-          {
-            where: {},
-          }
-        );
-        res.status(204).end();
       }
       //if req mark one
-      else {
-        let todoObj: IobjectFromPostgre = await Todos.findOne({
-          where: { id: req.params.id },
-        });
 
-        await Todos.update(
-          { isCompleted: !todoObj.dataValues.isCompleted },
-          {
-            where: {
-              id: req.params.id,
-            },
-          }
-        );
-        res.status(204).end();
-      }
+      let todoObj: IobjectFromPostgre = await Todos.findOne({
+        where: { id: req.params.id },
+      });
+
+      await Todos.update(
+        { isCompleted: !todoObj.dataValues.isCompleted },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      res.status(204).end();
     } catch (error) {
       console.log(error);
       next(new Error('access denied'));

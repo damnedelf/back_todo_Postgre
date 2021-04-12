@@ -11,7 +11,7 @@ var sequelize = new Sequelize(
   }
 );
 const queryInterface = sequelize.getQueryInterface();
-queryInterface.createTable(process.env.DB_NAME, {
+queryInterface.createTable('todos', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
