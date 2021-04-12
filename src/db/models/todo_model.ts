@@ -1,7 +1,7 @@
 //todo schema for mongo
 
 
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
 
 const TodoSchema = new mongoose.Schema({
