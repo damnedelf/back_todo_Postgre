@@ -1,32 +1,31 @@
 import { NextFunction, Request, Response } from 'express';
 let express = require('express');
-
-const todo = require('../db/models/todo_model');
-
 const router = express.Router();
 
-//order for front
-let orderN: number;
+const Todos = require('../db/models/todo_model');
+
 //new todo===>db
 router.post(
   '',
   async function (req: Request, res: Response, next: NextFunction) {
     try {
-      // orderN = await todo.find().countDocuments();
-      // orderN++;
-      let person = new todo({
+      let person = await Todos.create({
         name: req.body.name,
         isCompleted: false,
         order: req.body.order,
       });
 
-      let todoForRes: todoFromDb = await person.save();
-      res.status(201).json(todoForRes);
+      const responseObject = {
+        id: person.dataValues.id,
+        name: req.body.name,
+        isCompleted: false,
+        order: req.body.order,
+      };
+      res.status(201).json(responseObject);
     } catch (error) {
       console.log(error);
       next(new Error('access denied'));
     }
-    //get amount of docs in collection
   }
 );
 //get all array for onLoad
@@ -34,7 +33,9 @@ router.get(
   '',
   async function (req: Request, res: Response, next: NextFunction) {
     try {
-      let todoArr: todoFromDb[] = await todo.find({}).sort({ order: 1 });
+      const todoArr: IobjectFromPostgre[] = await Todos.findAll({
+        order: [['order', 'ASC']],
+      });
       res.status(200).json(todoArr);
     } catch (error) {
       console.log(error);
@@ -47,7 +48,9 @@ router.delete(
   '/:id',
   async function (req: Request, res: Response, next: NextFunction) {
     try {
-      await todo.findOneAndRemove({ _id: req.params.id });
+      await Todos.destroy({
+        where: { id: req.params.id },
+      });
       res.status(204).end();
     } catch (error) {
       console.log(error);
@@ -55,42 +58,47 @@ router.delete(
     }
   }
 );
-//mark completed/!completed by id + update all + order
+// //mark completed/!completed by id + update all + order
 router.patch(
   '/:id',
   async function (req: Request, res: Response, next: NextFunction) {
     try {
       //if req  => order
       if (req.body.order !== null && req.body.condition == null) {
-        await todo.findOneAndUpdate(
-          { _id: req.params.id },
-          { $set: { order: req.body.order } }
+        await Todos.update(
+          { order: Number(req.body.order) },
+          {
+            where: {
+              id: req.params.id,
+            },
+          }
         );
 
         res.status(204).end();
-        //if req => mark all
+        //   //if req => mark all
       } else if (req.body.condition !== null) {
-        await todo.updateMany(
-          {},
-          { $set: { isCompleted: !req.body.condition } }
+        await Todos.update(
+          { isCompleted: !req.body.condition },
+          {
+            where: {},
+          }
         );
-
         res.status(204).end();
       }
       //if req mark one
       else {
-        let todoObj: todoFromDb = await todo.findOne({ _id: req.params.id });
-
-        //find todo by id and switch isCompleted
-        await todo.findOneAndUpdate(
-          { _id: req.params.id },
-          { $set: { isCompleted: !todoObj.isCompleted } }
-        );
-
-        res.set({
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
+        let todoObj: IobjectFromPostgre = await Todos.findOne({
+          where: { id: req.params.id },
         });
+
+        await Todos.update(
+          { isCompleted: !todoObj.dataValues.isCompleted },
+          {
+            where: {
+              id: req.params.id,
+            },
+          }
+        );
         res.status(204).end();
       }
     } catch (error) {

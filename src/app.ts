@@ -3,11 +3,18 @@ import { NextFunction, Request, Response } from 'express';
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = process.env.PORT;
 const router = require('./router/routes');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const mongoConnect = require('./db/mongo');
+// const mongoConnect = require('./db/mongo');
+
+const db = require('./db/index');
+const port = process.env.PORT;
+
+//test db
+db.authenticate()
+  .then(() => console.log(`db connected`))
+  .catch((err: ErrorConstructor) => console.log(`error: ${err}`));
 
 let jsonParser = bodyParser.json();
 
@@ -32,4 +39,4 @@ app.listen(
   console.log(`server up===>>>>>${process.env.URL}:${port} `)
 );
 
-mongoConnect();
+// mongoConnect();

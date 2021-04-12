@@ -1,13 +1,26 @@
-//todo schema for mongo
-
-
-var mongoose = require('mongoose');
-
-
-const TodoSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  isCompleted: { type: Boolean, required: true },
-  order: { type: Number, required: true },
-});
-const todo = mongoose.model('todos', TodoSchema);
-module.exports = todo;
+var Sequelize = require('sequelize');
+const db = require('../index');
+require('dotenv').config();
+const Todos = db.define(
+  process.env.DB_NAME,
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: Sequelize.TEXT,
+    },
+    isCompleted: {
+      type: Sequelize.BOOLEAN,
+    },
+    order: {
+      type: Sequelize.DECIMAL,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
+module.exports = Todos;

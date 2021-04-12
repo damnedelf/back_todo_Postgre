@@ -1,4 +1,6 @@
 U need to create .env file. Below is default template 
 URL=localhost
 PORT=5500
-MONGO_CONNECT_STRING = "mongodb://localhost/toDoCollection"
+DB_NAME = "todos"
+DB_LOGIN = "damnedelf"
+DB_PASSWORD = "killmenot"

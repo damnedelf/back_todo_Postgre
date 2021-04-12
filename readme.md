@@ -1,13 +1,13 @@
 <br />
 <p align="center">
-  <a href="https://github.com/damnedelf/todo_back_express_mongo_ts">
+  <a href="https://github.com/damnedelf/back_todo_Postgre/">
     <img src="assets/img/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">ToDO app</h3>
 
   <p align="center">
-   Typescript Front End for todo+mongo
+   Typescript Front End for todo+Postgre
     <br />
     
   </p>
@@ -31,13 +31,13 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="https://github.com/damnedelf/todo_back_express_mongo_ts/issues">report bug, any questions</a></li>
+    <li><a href="https://github.com/damnedelf/back_todo_Postgre/issues">report bug, any questions</a></li>
   </ol>
 </details>
 
 ## About The Project
 
-**Homework for Intspirit dev_courses. Back end part for todo+mongo**
+**Homework for Intspirit dev_courses. Back end part for todo+Postgre**
 
 #### mail: damnedelf@ya.ru
 
@@ -64,11 +64,11 @@ This is an example of how to list things you need to use the software and how to
 
 1. Clone the repo
    ```sh
-     git clone https://github.com/damnedelf/todo_back_express_mongo_ts.git
+     git clone https://github.com/damnedelf/back_todo_Postgre.git
    ```
 2. GO to project folder
    ```sh
-   cd todo_back_express_mongo_ts
+   cd back_todo_Postgre
    ```
 3. Install dependency packages
    ```sh
