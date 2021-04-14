@@ -78,9 +78,14 @@ This is an example of how to list things you need to use the software and how to
 
 ## Usage
 
-Create .env file to conigure ur environment. Use env_template as template, if u want.
+1. Create .env file to conigure ur environment. Use env_template as template, if u want.
+2. Type run ./node_modules/.bin/sequelize-cli init to create config/models/migrations
+3. Rename config/config.json to config/config.js and update the code(u can use as template configtemplate)
+4. Create migration file and put it to the migrations folder(U can use as template migrationstemplate)
+5. Type npm run db:create to create DB
+6. Type npm run db:migrate to create todos table
 
-#### After creating .env u can build bundle and run server, 2 modes are available;
+#### After creating .env,db,table u can build bundle and run server, 2 modes are available;
 
 1. Webpack bundles code
 

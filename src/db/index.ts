@@ -10,15 +10,5 @@ var sequelize = new Sequelize(
     dialect: 'postgres',
   }
 );
-const queryInterface = sequelize.getQueryInterface();
-queryInterface.createTable('todos', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  name: DataTypes.STRING,
-  isCompleted: DataTypes.BOOLEAN,
-  order: DataTypes.DECIMAL,
-});
+
 module.exports = sequelize;
